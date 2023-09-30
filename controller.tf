@@ -17,13 +17,13 @@ resource "aws_iam_role" "AmazonEKSLoadBalancerControllerRole" {
         {
             "Effect": "Allow",
             "Principal": {
-                "Federated": "arn:aws:iam::${data.aws_caller_identity.current.id}:oidc-provider/oidc.eks.us-west-1.amazonaws.com/id/864ADA0CE43D4B6861FEDB3048244AC3"
+                "Federated": "arn:aws:iam::${data.aws_caller_identity.current.id}:oidc-provider/oidc.eks.us-west-1.amazonaws.com/id/CDA8BE08F704837946482364F51005AD"
             },
             "Action": "sts:AssumeRoleWithWebIdentity",
             "Condition": {
                 "StringEquals": {
-                    "oidc.eks.${var.region}.amazonaws.com/id/864ADA0CE43D4B6861FEDB3048244AC3:aud": "sts.amazonaws.com",
-                    "oidc.eks.${var.region}.amazonaws.com/id/864ADA0CE43D4B6861FEDB3048244AC3:sub": "system:serviceaccount:kube-system:aws-load-balancer-controller"
+                    "oidc.eks.${var.region}.amazonaws.com/id/CDA8BE08F704837946482364F51005AD:aud": "sts.amazonaws.com",
+                    "oidc.eks.${var.region}.amazonaws.com/id/CDA8BE08F704837946482364F51005AD:sub": "system:serviceaccount:kube-system:aws-load-balancer-controller"
                 }
             }
         }
@@ -56,7 +56,7 @@ resource "kubernetes_service_account" "aws-load-balancer-controller-service-acco
   }
 }
 
-/* resource "helm_release" "aws_load_balancer_controller" {
+resource "helm_release" "aws_load_balancer_controller" {
   depends_on = [ aws_iam_role.AmazonEKSLoadBalancerControllerRole ]
   name       = "aws-load-balancer-controller"
   namespace  = "kube-system"
@@ -82,4 +82,4 @@ resource "kubernetes_service_account" "aws-load-balancer-controller-service-acco
     value = "602401143452.dkr.ecr.us-west-1.amazonaws.com"
     
   }
-}*/
+}

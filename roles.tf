@@ -1,5 +1,5 @@
 resource "aws_iam_role" "eks_cluster_role" {
-  name = "eks-master-role"
+  name = "eks-cluster-role"
 
   assume_role_policy = <<POLICY
 {
@@ -28,7 +28,7 @@ resource "aws_iam_role_policy_attachment" "eks_AmazonEKSVPCResourceController" {
 }
 
 resource "aws_iam_role" "worker-role" {
-  name = "eks-nodegroup-role"
+  name = "eks-worker-role"
 
   assume_role_policy = jsonencode({
     Statement = [{
